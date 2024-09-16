@@ -1,4 +1,4 @@
-import React from "react";
+import React, { lazy } from "react";
 import Image1 from "../assets/Hero Section Image/auto-mechanic-working-garage-repair-service.jpg";
 import Image2 from "../assets/Hero Section Image/male-electrician-works-switchboard-with-electrical-connecting-cable.jpg";
 import Image3 from "../assets/Hero Section Image/man-installs-heating-system-house-checks-pipes-with-wrench.jpg";
@@ -29,6 +29,7 @@ const HeroSection = () => {
             <img
               src={Image1}
               alt=""
+              loading="lazy"
               className="w-full h-full object-cover hover:scale-105 transition-transform duration-300 ease-in-out"
             />
           </div>
@@ -36,6 +37,7 @@ const HeroSection = () => {
             <img
               src={Image2}
               alt=""
+              loading="lazy"
               className="w-full h-full object-cover hover:scale-105 transition-transform duration-300 ease-in-out"
             />
           </div>
@@ -43,6 +45,7 @@ const HeroSection = () => {
             <img
               src={Image3}
               alt=""
+              loading="lazy"
               className="w-full h-full object-cover hover:scale-105 transition-transform duration-300 ease-in-out"
             />
           </div>
@@ -50,6 +53,7 @@ const HeroSection = () => {
             <img
               src={Image4}
               alt=""
+              loading="lazy"
               className="w-full h-full object-cover hover:scale-105 transition-transform duration-300 ease-in-out"
             />
           </div>

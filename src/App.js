@@ -1,12 +1,21 @@
 import React from 'react'
+
 import HomePage from './pages/HomePage'
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import RegisterPage from './pages/RegisterPage'
+import { ToastContainer } from 'react-toastify';
 
 const App = () => {
   return (
-    <div>
+    <Router>
+      <ToastContainer />
+      <Routes>
 
-      <HomePage />
-    </div>
+        <Route path='/' element={<HomePage />} />
+        <Route path='/register' element={<RegisterPage />} />
+      </Routes>
+
+    </Router>
   )
 }
 
