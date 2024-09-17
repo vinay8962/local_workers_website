@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { collection, getDocs } from "firebase/firestore";
-import { db } from "../firebaseConfig"; // Adjust the path if needed
+import { db } from "../firebaseConfig";
 
 const WorkersList = () => {
   const [workers, setWorkers] = useState([]);
@@ -32,9 +32,16 @@ const WorkersList = () => {
   return (
     <div>
       <h2 className="text-2xl font-semibold text-center mb-4">Workers List</h2>
-      <ul>
+      <ul className="flex">
         {workers.map((worker) => (
           <li key={worker.id} className="mb-4 p-4 border rounded-md">
+            {worker.profileImage && (
+              <img
+                src={worker.profileImage}
+                alt={`${worker.fullName}'s Profile`}
+                className="w-32 h-32 object-cover rounded-full mt-4"
+              />
+            )}
             <p>
               <strong>Full Name:</strong> {worker.fullName}
             </p>
@@ -48,13 +55,6 @@ const WorkersList = () => {
               <strong>City:</strong> {worker.city}
             </p>
             {/* Add more fields if necessary */}
-            {worker.profileImage && (
-              <img
-                src={worker.profileImage}
-                alt={`${worker.fullName}'s Profile`}
-                className="w-32 h-32 object-cover rounded-full mt-4"
-              />
-            )}
           </li>
         ))}
       </ul>

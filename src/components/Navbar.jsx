@@ -1,7 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { CiSearch } from "react-icons/ci";
-import { FaArrowRight } from "react-icons/fa";
+import SearchField from "./SearchField";
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -16,16 +15,7 @@ const Navbar = () => {
         </h1>
       </div>
       <div>
-        <div className="border h-10 w-72 border-gray-400 rounded-xl flex items-center p-2">
-          <CiSearch size={25} />
-          <input
-            type="text"
-            name=""
-            placeholder="Search field"
-            className=" focus:outline-none  ml-2"
-            id=""
-          />
-        </div>
+        <SearchField />
       </div>
       <div>
         <button className="border-b-2 border-gray-400 p-2" onClick={handerLink}>
