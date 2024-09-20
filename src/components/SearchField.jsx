@@ -44,6 +44,7 @@ const SearchField = () => {
     setSearchData(e.target.value);
   };
 
+  console.log(filteredWorkers);
   return (
     <div className="relative">
       <div className="border h-10 w-72 border-gray-400 rounded-xl flex items-center p-2">

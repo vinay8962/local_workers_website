@@ -4,6 +4,7 @@ import { addDoc, collection } from "firebase/firestore";
 import { db } from "../firebaseConfig"; // Import Firestore
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import { cityData } from "../CityJsonData"; // Ensure cityData includes state info
 
 const RegisterForm = () => {
   const navigate = useNavigate();
@@ -16,6 +17,10 @@ const RegisterForm = () => {
     city: "",
     state: "",
   });
+
+  const cityDataSort = () => {
+    return cityData.sort((a, b) => a.name.localeCompare(b.name));
+  };
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
@@ -36,20 +41,31 @@ const RegisterForm = () => {
     }));
   };
 
+  const handleCityChange = (e) => {
+    const selectedCity = e.target.value;
+    const selectedCityData = cityData.find(
+      (city) => city.name === selectedCity
+    );
+
+    setFormData((prevData) => ({
+      ...prevData,
+      city: selectedCity,
+      state: selectedCityData ? selectedCityData.state : "",
+    }));
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       const docRef = await addDoc(collection(db, "Register Workers"), {
         ...formData,
-        profileImage: profileImage || "", // Save base64 string or an empty string
+        profileImage: profileImage || "",
       });
       console.log("Document written with ID: ", docRef.id);
-      // alert("Data successfully saved!");
       navigate("/");
       toast.success("Data successfully saved!");
     } catch (error) {
       console.error("Error adding document: ", error);
-
       toast.error("Error saving data, please try again.");
     }
   };
@@ -63,6 +79,7 @@ const RegisterForm = () => {
       <h2 className="text-2xl font-semibold text-center mb-1">Register</h2>
       <form onSubmit={handleSubmit}>
         <div className="space-y-4">
+          {/* Profile Image */}
           <div className="w-full flex justify-center">
             <input
               type="file"
@@ -92,7 +109,7 @@ const RegisterForm = () => {
             </div>
           </div>
 
-          {/* Full Name Input */}
+          {/* Full Name */}
           <div>
             <label
               htmlFor="fullName"
@@ -111,7 +128,7 @@ const RegisterForm = () => {
             />
           </div>
 
-          {/* Number Input */}
+          {/* Number */}
           <div>
             <label
               htmlFor="number"
@@ -130,7 +147,7 @@ const RegisterForm = () => {
             />
           </div>
 
-          {/* Work Field Select */}
+          {/* Work Field */}
           <div>
             <label
               htmlFor="workField"
@@ -147,7 +164,7 @@ const RegisterForm = () => {
               className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm"
             >
               <option value="">Select your field</option>
-              <option value="Mecenic">Mecenic</option>
+              <option value="Mechanic">Mechanic</option>
               <option value="AC Expert">AC Expert</option>
               <option value="Electrician">Electrician</option>
               <option value="Plumber">Plumber</option>
@@ -164,7 +181,7 @@ const RegisterForm = () => {
             </select>
           </div>
 
-          {/* Address Input */}
+          {/* Address and City */}
           <div className="flex gap-4 w-full">
             <div className="w-1/2">
               <label
@@ -191,19 +208,25 @@ const RegisterForm = () => {
               >
                 City
               </label>
-              <input
-                type="text"
+              <select
                 name="city"
                 id="city"
                 value={formData.city}
-                onChange={handleChange}
+                onChange={handleCityChange}
                 required
                 className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm"
-              />
+              >
+                <option value="">Select city</option>
+                {cityDataSort().map((data) => (
+                  <option key={data.id} value={data.name}>
+                    {data.name}
+                  </option>
+                ))}
+              </select>
             </div>
           </div>
 
-          {/* State Input */}
+          {/* State */}
           <div>
             <label
               htmlFor="state"
@@ -219,6 +242,7 @@ const RegisterForm = () => {
               onChange={handleChange}
               required
               className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm"
+              readOnly
             />
           </div>
         </div>

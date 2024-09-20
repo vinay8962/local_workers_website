@@ -14,6 +14,7 @@ const CustomerReview = () => {
     infinite: true,
     autoplay: true,
     speed: 500,
+    arrows: false,
     slidesToShow: 2,
     slidesToScroll: 1,
     initialSlide: 0,
